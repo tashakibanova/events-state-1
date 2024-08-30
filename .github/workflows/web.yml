@@ -43,7 +43,10 @@ jobs:
       - run: yarn test
 
   build:
-    needs: [eslint]
+    needs: 
+      - eslint
+      - test
+    if: ${{ failure() || github.ref == 'refs/heads/main' }}
 
     environment:
       name: github-pages
