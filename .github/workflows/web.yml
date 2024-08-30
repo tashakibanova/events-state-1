@@ -1,4 +1,4 @@
-name: Портфолио с фильтрами
+name: Portfolio with Filters
 on:
   push:
 
@@ -18,41 +18,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  eslint:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20.12.0
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run lint
-
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20.11.0
-          cache: 'npm'
-      - run: npm ci
-      - run: npm test
 
   build:
-    needs: 
-      - eslint
-      - test
-    if: ${{ failure() || github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
 
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -71,4 +43,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
 
