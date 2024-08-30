@@ -26,9 +26,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20.12.0
-          cache: 'yarn'
-      - run: yarn
-      - run: yarn lint
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
 
   test:
     runs-on: ubuntu-latest
@@ -38,9 +38,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20.11.0
-          cache: 'yarn'
-      - run: yarn
-      - run: yarn test
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test
 
   build:
     needs: 
@@ -59,9 +59,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20.11.0
-          cache: 'yarn'
-      - run: yarn
-      - run: yarn build
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
@@ -71,3 +71,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
